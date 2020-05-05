@@ -2,6 +2,8 @@
 import {nativeApp} from "./NativeWrapper"
 import {Request} from "../api/common/WorkerProtocol"
 import {uriToFileRef} from "./FileApp"
+import {isDesktop} from "../api/Env"
+import type {Language} from "../misc/LanguageViewModel"
 
 /**
  * Open the link
@@ -19,6 +21,12 @@ export function reloadNative(queryParameters: string): Promise<void> {
 
 export function changeColorTheme(theme: string): Promise<void> {
 	return nativeApp.invokeNative(new Request('changeTheme', [theme]))
+}
+
+export function changeSystemLanguage(language: Language): Promise<void> {
+	return isDesktop()
+		? nativeApp.initialized().then(() => nativeApp.invokeNative(new Request('changeLanguage', [language])))
+		: Promise.resolve()
 }
 
 /**

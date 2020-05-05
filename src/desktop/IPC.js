@@ -1,5 +1,6 @@
 // @flow
 import {app, dialog, ipcMain} from 'electron'
+import {lang} from "../misc/LanguageViewModel"
 import type {WindowManager} from "./DesktopWindowManager.js"
 import {err} from './DesktopErrorHandler.js'
 import {defer} from '../api/common/utils/Utils.js'
@@ -136,8 +137,8 @@ export class IPC {
 				return this._dl.downloadNative(...args.slice(0, 3))
 			case 'saveBlob':
 				// args: [data.name, uint8ArrayToBase64(data.data)]
-				const filename : string = downcast(args[0])
-				const data : Uint8Array = base64ToUint8Array(downcast(args[1]))
+				const filename: string = downcast(args[0])
+				const data: Uint8Array = base64ToUint8Array(downcast(args[1]))
 				return this._dl.saveBlob(filename, data, this._wm.get(windowId))
 			case "aesDecryptFile":
 				// key, path
@@ -210,6 +211,8 @@ export class IPC {
 				this.removeWindow(windowId)
 				this.addWindow(windowId)
 				return Promise.resolve()
+			case 'changeLanguage':
+				return lang.setLanguage(args[0])
 			default:
 				return Promise.reject(new Error(`Invalid Method invocation: ${method}`))
 		}
