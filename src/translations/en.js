@@ -1108,6 +1108,9 @@ module.exports = {
 		"yourCalendars_label": "Your calendars",
 		"yourFolders_action": "YOUR FOLDERS",
 		"yourMessage_label": "Your message",
-		"createUserFailed_msg": "Could not create the user. Please contact support."
+		"createUserFailed_msg": "Could not create the user. Please contact support.",
+		"rejectedSenders_label": "Rejected senders",
+		"rejectedSenderListInfo_msg": "List of delivery attempts to your mailbox which have been rejected by our sender restrictions. If you are missing a mail from a certain sender check the list and add a spam rule for the sender."
+
 	}
 }
